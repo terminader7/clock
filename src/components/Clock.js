@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { ClockTimerLength } from "./ClockTimerLength";
+import { ClockTimerDisplay } from "./ClockTimerDisplay";
 
 const ClockContainer = styled.div``;
 
@@ -12,7 +13,13 @@ export const Clock = () => {
   return (
     <ClockContainer>
       <h1>25 + 5 Clock</h1>
-      <ClockTimerLength />
+      <ClockTimerLength
+        setBreakTime={setBreakTime}
+        setSessionTime={setSessionTime}
+        breakTime={breakTime}
+        sessionTime={sessionTime}
+      />
+      <ClockTimerDisplay breakTime={breakTime} sessionTime={sessionTime} />
     </ClockContainer>
   );
 };

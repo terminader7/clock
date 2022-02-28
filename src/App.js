@@ -2,11 +2,13 @@ import "./App.css";
 import styled from "styled-components";
 import { Clock } from "./components/Clock";
 
+const AppPage = styled.div``;
+
 function App() {
   return (
-    <div className="App">
+    <AppPage>
       <Clock />
-    </div>
+    </AppPage>
   );
 }
 

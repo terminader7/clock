@@ -5,7 +5,12 @@ const BreakButtonLabel = styled.h1``;
 
 const SessionLength = styled.h1``;
 
-export const ClockTimerLength = () => {
+export const ClockTimerLength = (
+  setBreakTime,
+  setSessionTime,
+  breakTime,
+  sessionTime
+) => {
   return (
     <div>
       <BreakButtonLabel>Break Length</BreakButtonLabel>
