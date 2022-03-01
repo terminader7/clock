@@ -7,18 +7,14 @@ import { ClockTimerDisplay } from "./ClockTimerDisplay";
 const ClockContainer = styled.div``;
 
 export const Clock = () => {
-  const [breakTime, setBreakTime] = useState("5");
-  const [sessionTime, setSessionTime] = useState("25");
+  const [breakTime, setBreakTime] = useState(5);
+  const [sessionTime, setSessionTime] = useState(25);
 
   return (
     <ClockContainer>
       <h1>25 + 5 Clock</h1>
-      <ClockTimerLength
-        setBreakTime={setBreakTime}
-        setSessionTime={setSessionTime}
-        breakTime={breakTime}
-        sessionTime={sessionTime}
-      />
+      <ClockTimerLength setTime={setBreakTime} time={breakTime} />
+      <ClockTimerLength setTime={setSessionTime} time={sessionTime} />
       <ClockTimerDisplay breakTime={breakTime} sessionTime={sessionTime} />
     </ClockContainer>
   );

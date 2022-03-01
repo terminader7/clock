@@ -2,17 +2,17 @@ import React from "react";
 
 import styled from "styled-components";
 
-const displayBox = styled.div``;
+const DisplayBox = styled.div``;
 
-const timer = styled.h2``;
+const Timer = styled.h2``;
 
-const timerLabel = styled.h2``;
+const TimerLabel = styled.h2``;
 
-export const ClockTimerDisplay = (breakTime, sessionTime) => {
+export const ClockTimerDisplay = ({ breakTime, sessionTime }) => {
   return (
-    <displayBox>
-      <timerLabel />
-      <timer />
-    </displayBox>
+    <DisplayBox>
+      <TimerLabel />
+      <Timer />
+    </DisplayBox>
   );
 };
