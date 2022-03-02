@@ -23,19 +23,21 @@ const DownArrow = styled.div`
   -webkit-transform: rotate(45deg);
 `;
 
-export const ClockTimerLength = ({ setTime, time }) => {
+export const ClockTimerDetails = ({ setTime, time, title }) => {
   const incrementTime = () => {
-    setTime(time + 1);
+    setTime(time + 60);
   };
+
   const decrementTime = () => {
-    setTime(time - 1);
+    setTime(time - 60);
   };
+
   return (
     <div>
-      <Title>Title</Title>
-      {time !== 60 && <UpArrow onClick={incrementTime}></UpArrow>}
-      <Length>{time}</Length>
-      {time !== 1 && <DownArrow onClick={decrementTime}></DownArrow>}
+      <Title>{title} Length</Title>
+      {time !== 3600 && <UpArrow onClick={incrementTime}></UpArrow>}
+      <Length>{time / 60}</Length>
+      {time !== 60 && <DownArrow onClick={decrementTime}></DownArrow>}
     </div>
   );
 };
