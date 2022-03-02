@@ -7,40 +7,52 @@ const DisplayBox = styled.div`
   border-color: black;
   border-style: solid;
   display: flex;
-  width: 50px;
   border-radius: 5px;
+  flex-direction: column;
+  align-items: center;
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 `;
 
-const PlayButton = styled.div`
-  width: 74px;
-  height: 74px;
-  border-style: solid;
-  border-width: 37px;
-  border-color: #202020;
-`;
+const PausePlayButton = styled.button``;
 
-const PauseButton = styled.div``;
+const ResetButton = styled.button``;
 
-const ResetButton = styled.div``;
-
-const Timer = styled.h2``;
+const Timer = styled.h1``;
 
 const TimerLabel = styled.h2``;
 
 export const ClockTimerDisplay = ({ breakTime, sessionTime }) => {
-  const [currTimer, setCurrTimer] = useState("Session");
+  const [currTimerLabel, setCurrTimerLabel] = useState("Session");
+  const [currTime, setCurrTime] = useState(sessionTime);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const formatTime = (seconds) => {
     return `${seconds / 60}:${(seconds % 60).toString().padStart(2, "0")}`;
   };
   return (
-    <DisplayBox>
-      <TimerLabel>{currTimer}</TimerLabel>
-      <Timer>
-        {currTimer === "Session"
-          ? formatTime(sessionTime)
-          : formatTime(breakTime)}
-      </Timer>
-    </DisplayBox>
+    <div>
+      <DisplayBox>
+        <TimerLabel>{currTimerLabel}</TimerLabel>
+        <Timer>
+          {currTimerLabel === "Session"
+            ? formatTime(sessionTime)
+            : formatTime(breakTime)}
+        </Timer>
+      </DisplayBox>
+      <ButtonContainer>
+        <PausePlayButton
+          onClick={() => {
+            setIsPlaying(!isPlaying); //same as if isPlaying === false then return true vice versa
+          }}
+        >
+          Play/Pause
+        </PausePlayButton>
+        <ResetButton>Reset</ResetButton>
+      </ButtonContainer>
+    </div>
   );
 };

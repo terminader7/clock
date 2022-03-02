@@ -10,13 +10,15 @@ const ClockContainer = styled.div`
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  border: 5px;
-  border-style: dotted;
-  border-color: green;
+  gap: 20px;
+  flex-direction: column;
+`;
+
+const ClockTimerDetailsWrapper = styled.div`
+  display: flex;
   gap: 20px;
 `;
 //have title and timer switch once timer hits zero
-//get time in minutes and seconds
 //add pause, reset, play button
 //add count down to time
 
@@ -27,16 +29,18 @@ export const Clock = () => {
   return (
     <ClockContainer>
       <h1>25 + 5 Clock</h1>
-      <ClockTimerDetails
-        setTime={setBreakTime}
-        time={breakTime}
-        title={"Break"}
-      />
-      <ClockTimerDetails
-        setTime={setSessionTime}
-        time={sessionTime}
-        title={"Session"}
-      />
+      <ClockTimerDetailsWrapper>
+        <ClockTimerDetails
+          setTime={setBreakTime}
+          time={breakTime}
+          title={"Break"}
+        />
+        <ClockTimerDetails
+          setTime={setSessionTime}
+          time={sessionTime}
+          title={"Session"}
+        />
+      </ClockTimerDetailsWrapper>
       <ClockTimerDisplay breakTime={breakTime} sessionTime={sessionTime} />
     </ClockContainer>
   );
