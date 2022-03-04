@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  isPlayingUseEffect,
-  sessionTimeBreakTimeUseEffect,
-} from "../useEffect";
 
 import styled from "styled-components";
+
+import {
+  faPlayCircle,
+  faPauseCircle,
+} from "@fortawesome/free-regular-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { css } from "styled-components";
 
 const DisplayBox = styled.div`
   border: 5px;
@@ -29,31 +33,48 @@ const PausePlayButton = styled.button`
   background-color: #00796b;
   color: white;
   border-radius: 5px;
-  height: 35px;
+  border: none;
+  font-size: 20px;
+  padding: 10px 0px;
+  width: 110px;
 `;
 
 const ResetButton = styled.button`
-  background-color: #e81e1e;
-  color: white;
+  background-color: white;
+  color: #00796b;
   border-radius: 5px;
+  border: none;
+  font-size: 20px;
+  padding: 10px 25px;
 `;
 
-const Timer = styled.h1``;
+const Timer = styled.h1`
+  ${(props) =>
+    props.isSub60 &&
+    css`
+      color: #de4343;
+    `}
+`;
 
 const TimerLabel = styled.h2``;
 
-export const ClockTimerDisplay = ({ breakTime, sessionTime }) => {
+export const ClockTimerDisplay = ({
+  breakTime,
+  sessionTime,
+  setBreakTime,
+  setSessionTime,
+}) => {
   const [currTimerLabel, setCurrTimerLabel] = useState("Session");
   const [currTime, setCurrTime] = useState(sessionTime);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [intervalID, setIntervalId] = useState();
+  const [intervalID, setIntervalID] = useState();
 
   const currTimeRef = useRef();
   currTimeRef.current = currTime;
 
   useEffect(() => {
     if (isPlaying) {
-      setIntervalId(
+      setIntervalID(
         setInterval(() => {
           console.log(currTimeRef.current);
           setCurrTime(currTimeRef.current - 1);
@@ -78,11 +99,19 @@ export const ClockTimerDisplay = ({ breakTime, sessionTime }) => {
       .padStart(2, "0")}`;
   };
 
+  const handleZero = (currTimerLabel) => {
+    if (currTimerLabel === "Session") {
+      setCurrTimerLabel("Break");
+      setCurrTime(breakTime);
+    } else {
+      setCurrTimerLabel("Session");
+      setCurrTime(sessionTime);
+    }
+  };
+
   useEffect(() => {
     if (currTime === 0) {
-      currTimerLabel === "Session"
-        ? setCurrTimerLabel("Break") && setCurrTime(breakTime)
-        : setCurrTimerLabel("Session") && setCurrTime(sessionTime);
+      handleZero(currTimerLabel);
     }
   }, [currTime]);
 
@@ -90,7 +119,9 @@ export const ClockTimerDisplay = ({ breakTime, sessionTime }) => {
     <div>
       <DisplayBox>
         <TimerLabel>{currTimerLabel}</TimerLabel>
-        <Timer>{formatTime(currTimeRef.current)}</Timer>
+        <Timer isSub60={currTimeRef.current < 60}>
+          {formatTime(currTimeRef.current)}
+        </Timer>
       </DisplayBox>
       <ButtonContainer>
         <PausePlayButton
@@ -98,9 +129,19 @@ export const ClockTimerDisplay = ({ breakTime, sessionTime }) => {
             setIsPlaying(!isPlaying); //same as if isPlaying === false then return true vice versa
           }}
         >
-          Play/Pause
+          {isPlaying ? "Pause" : "Play"}
         </PausePlayButton>
-        <ResetButton>Reset</ResetButton>
+        <ResetButton
+          onClick={() => {
+            setIsPlaying(false);
+            setCurrTime(25 * 60);
+            setSessionTime(25 * 60);
+            setBreakTime(5 * 60);
+            setCurrTimerLabel("Session");
+          }}
+        >
+          Reset
+        </ResetButton>
       </ButtonContainer>
     </div>
   );

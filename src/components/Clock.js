@@ -41,7 +41,12 @@ export const Clock = () => {
           title={"Session"}
         />
       </ClockTimerDetailsWrapper>
-      <ClockTimerDisplay breakTime={breakTime} sessionTime={sessionTime} />
+      <ClockTimerDisplay
+        setSessionTime={setSessionTime}
+        setBreakTime={setBreakTime}
+        breakTime={breakTime}
+        sessionTime={sessionTime}
+      />
     </ClockContainer>
   );
 };
